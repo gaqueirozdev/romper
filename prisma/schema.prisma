@@ -1,0 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" //database we are using
+  url      = env("DATABASE_URL") //sets what env variable it should read as URL
+}
+
+//table creation
+model User {
+  id String @id @default(uuid())
+  name String
+  email String
+  password String
+  imageUrl String
+  goals Goal[]
+}
+
+model Goal {
+  id String @id @default(uuid())
+  startDate String
+  endDate String
+  tasks Task[]
+  userId String
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Task {
+  id String @id @default(uuid())
+  title String
+  description String
+  periodicity String
+  minimalConclusions Int
+  concludedWeekdays String 
+  goalId String
+  goal Goal @relation(fields: [goalId], references: [id])
+}
+
+model Weekday {
+  weekdayNum Int @id @default(autoincrement())
+  weekdayName String
+}
+
