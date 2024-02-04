@@ -1,16 +1,17 @@
 import PropTypes from 'prop-types';
-import { Navigate, useLocation } from 'react-router-dom';
-import { useAuthentication } from '../hooks/auth';
+import { useLocation } from 'react-router-dom';
 
 export const RouteGuard = ({ children }) => {
   const { pathname } = useLocation()
-  const { checkIsUserLoggedIn } = useAuthentication()
+  // const { checkIsUserLoggedIn } = useAuthentication()
 
   if (pathname !== '/login' && pathname !== '/register') {
     return children
   }
+
+  return children
   
-  return checkIsUserLoggedIn() ? <Navigate to="/" /> : children
+  // return checkIsUserLoggedIn() ? <Navigate to="/" /> : children
 }
 
 RouteGuard.propTypes = {

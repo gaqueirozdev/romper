@@ -1,9 +1,7 @@
 import { useRef, useState } from 'react';
 import { Avatar, Box, Button, IconButton, Input, TextField } from "@mui/material"
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
-import { useSelector } from 'react-redux';
-import { onAuthStateChanged, updateProfile } from 'firebase/auth';
-import { auth, storageRef } from "../assets/firebase";
+// import { useSelector } from 'react-redux';
 import { convertBase64 } from '../helpers/convertions';
 import { 
   styledAvatarInputBox, 
@@ -15,16 +13,16 @@ import {
   styledUserProfileFormBox, 
   styledUserProfilePageWrapper 
 } from './userProfile.style';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+// import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 export const UserProfile = () => {
   const fileInput = useRef(null)
   const [userName, setUserName] = useState('')
   const [userCurrentPassword, setUserCurrentPassword] = useState('')
   const [userNewPassword, setUserNewPassword] = useState('')
-  const [profileImageFile, setProfileImageFile] = useState(null)
+  // const [profileImageFile, setProfileImageFile] = useState(null)
   const [profileImageB64, setProfileImageB64] = useState(null)
-  const user = useSelector(({ userSlice }) => userSlice.user)
+  // const user = useSelector(({ userSlice }) => userSlice.user)
 
   const hiddenInputProps = { 
     ref: fileInput 
@@ -37,7 +35,7 @@ export const UserProfile = () => {
   async function handleProfileImageInput (e) {
     try {
       const response = await convertBase64(e.target.files[0])
-      setProfileImageFile(e.target.files[0])
+      // setProfileImageFile(e.target.files[0])
       setProfileImageB64(response)
     } catch (error) {
       console.log(error)
@@ -45,33 +43,7 @@ export const UserProfile = () => {
   }
 
   async function saveProfile () {
-    
-  onAuthStateChanged(auth, function(user) {
-    if (user) {
-      console.log('config', user)
-      // User is signed in.
-    } else {
-      console.log('config', user)
-      // No user is signed in.
-    }
-  });
 
-    const profileImageRef = ref(storageRef, 'profileImages/user-id-goes-here.qlqrcoisa')
-
-    await uploadBytes(profileImageRef, profileImageFile)
-
-    const userUpdatedObject = {
-      displayName: userName || user.displayName,
-      photoURL: await getDownloadURL(
-        ref(storageRef, 'profileImages/user-id-goes-here.qlqrcoisa')).then(url => {
-          return url
-        }).catch(error => {
-          console.log('Error downloading photoURL', error)
-        }
-      )
-    }
-
-    await updateProfile(auth.currentUser, userUpdatedObject)
   }
 
   return (

@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuthentication } from "../../hooks/auth";
 import { Avatar, MenuItem, Menu as AvatarMenu } from "@mui/material"
 import { styledAvatar } from "./profileAvatar.style";
 
 export const ProfileAvatar = () => {
   const navigate = useNavigate()
-  const { logout } = useAuthentication()
   const [avatarMenuAnchorEl, setAvatarMenuAnchorEl] = useState(null);
   const [isAvatarMenuOpen, setIsAvatarMenuOpen] = useState(false)
 
@@ -27,7 +25,6 @@ export const ProfileAvatar = () => {
 
   function handleLogout () {
     handleAvatarMenuClose()
-    logout()
     navigate('/login')
   }
 

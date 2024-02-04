@@ -1,12 +1,11 @@
 import PropTypes from 'prop-types';
-import { Navigate } from 'react-router-dom';
-import { useAuthentication } from '../hooks/auth';
+// import { Navigate } from 'react-router-dom';
 import { Header } from '../components/header'
 
 export const ProtectedLayout = ({ children }) => {
-  const { checkIsUserLoggedIn } = useAuthentication()
+  // const { checkIsUserLoggedIn } = useAuthentication()
 
-  if (!checkIsUserLoggedIn()) return <Navigate to="/login"/>
+  // if (!checkIsUserLoggedIn()) return <Navigate to="/login"/>
 
   return (
     <>
